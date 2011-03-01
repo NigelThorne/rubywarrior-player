@@ -1,0 +1,15 @@
+This is my player for the RubyWarrior game..
+
+> gem install rubywarrior
+> rubywarrior 
+
+follow the instructions... 
+
+If you want to try my player, then just replace your 'player.rb' with mine. 
+
+I have tried to make it 'backward compatible' 
+I.E. If you are playing a level where you can't 'look' (for example) then my player doesn't try to.
+
+If you want to skip to the level I am on.. just dump all my source in your rubywarrior folder.
+
+
