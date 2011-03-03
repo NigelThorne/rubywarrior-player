@@ -12,12 +12,7 @@ class Player
 	  warrior.shoot!(:backward)
 	  return
 	end
-    
-    if @ahead.to_s != 'Archer' && @behind.to_s == 'Captive'
-      warrior.pivot!
-      return
-    end
-    
+
   	if !@ahead.empty? && @ahead.enemy? &&
   	     (@ahead.to_s != 'Sludge' || @health < 10) &&
   	     (@ahead.to_s != 'Archer')
@@ -29,6 +24,16 @@ class Player
   	  warrior.rescue!
   	  return
   	end
+    
+	if warrior.feel(:backward).captive?
+  	  warrior.rescue!(:backward)
+  	  return
+  	end
+    
+    if @behind.to_s == 'Captive'
+      warrior.walk!(:backward)
+      return
+    end
     
     if warrior.feel.empty?
       warrior.walk!
