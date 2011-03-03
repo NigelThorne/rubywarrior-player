@@ -31,7 +31,7 @@ class Player
       return
     end
     
-  	if @empty && @health < 20 && !@health_decreased
+  	if @empty && @health < 18 && !@health_decreased
   	  warrior.rest!
   	  return
   	end
