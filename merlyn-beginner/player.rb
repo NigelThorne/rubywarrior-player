@@ -5,30 +5,17 @@ class Player
   end
   
   def play_turn(warrior)
-    if warrior.respond_to?(:health)
-      @health = warrior.health
-    else
-      @health = 20
+    @health = warrior.health
+    @empty = warrior.feel.empty?
+    @captive = warrior.feel.captive?
+    @enemy_archer = warrior.feel.to_s == 'Archer'
+    @wall = warrior.feel.wall?
+    @first_thing = warrior.look.find {|space| !space.empty? }
+    @shootable = false
+    if @first_thing != nil && @first_thing.to_s != 'wall'
+      @shootable = !@first_thing.captive?
     end
-    if warrior.respond_to?(:feel)
-      @empty = warrior.feel.empty?
-      @captive = warrior.feel.captive?
-      @enemy_archer = warrior.feel.to_s == 'Archer'
-      @wall = warrior.feel.wall?
-    else
-      @empty = true
-	  @captive = false
-	  @wall = false
-	  @enemy_archer = false
-    end
-    if warrior.respond_to?(:look)
-      @first_thing = warrior.look.find {|space| !space.empty? }
-      @shootable = false
-      if @first_thing != nil && @first_thing.to_s != 'wall'
-        @shootable = !@first_thing.captive?
-      end
-    end
-    @can_pivot = warrior.respond_to?(:pivot)
+    @can_pivot = true
     act(warrior)
     @prior_health = @health
   end
