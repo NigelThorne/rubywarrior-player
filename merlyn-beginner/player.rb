@@ -1,24 +1,13 @@
 class Player
-  def initialize()
-  	@prior_health = 20
-  end
-  
   def play_turn(warrior)
-    @health = warrior.health
-    @health_decreased = @health < @prior_health
-	
+	@health = warrior.health
+
 	@ahead = warrior.look.find {|space| !space.empty? }
 	@ahead = [] if @ahead == nil
 	
 	@behind = warrior.look(:backward).find {|space| !space.empty? }
 	@behind = [] if @behind == nil
 	
-    act(warrior)
-
-    @prior_health = @health
-  end
-  
-  def act(warrior)
 	if @behind.to_s == 'Archer'
 	  warrior.shoot!(:backward)
 	  return
