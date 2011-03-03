@@ -1,11 +1,11 @@
 class Player
   def initialize()
   	@prior_health = 20
-  	@health = 20
   end
   
   def play_turn(warrior)
     @health = warrior.health
+    @health_decreased = @health < @prior_health
     @empty = warrior.feel.empty?
     @captive = warrior.feel.captive?
     @enemy_archer = warrior.feel.to_s == 'Archer'
@@ -21,7 +21,7 @@ class Player
   end
   
   def act(warrior)
-    if @health < @prior_health && @empty && @first_thing != nil && @first_thing.to_s != 'Archer'
+    if @health_decreased && @empty && @first_thing != nil && @first_thing.to_s != 'Archer'
       warrior.pivot!
       return
     end
@@ -31,7 +31,7 @@ class Player
       return
     end
     
-  	if @empty && @health < 20 && @prior_health <= @health
+  	if @empty && @health < 20 && !@health_decreased
   	  warrior.rest!
   	  return
   	end
