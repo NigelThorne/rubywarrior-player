@@ -28,6 +28,7 @@ class Player
         @shootable = !@first_thing.captive?
       end
     end
+    @can_pivot = warrior.respond_to?(:pivot)
     act(warrior)
     @prior_health = @health
   end
@@ -74,7 +75,7 @@ class Player
 	  return
 	end
 	
-	if !@enemy_archer && !@pivotted
+	if !@enemy_archer && !@pivotted && @can_pivot
 	  @pivotted = true
 	  warrior.walk!(:backward)
 	  @next_action = :pivot

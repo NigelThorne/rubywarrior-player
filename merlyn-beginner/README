@@ -9,7 +9,7 @@ Tip: Watch your back.
  -----------
 
   > = Stairs
-  @ = Merlyn (20 HP)
+  @ = merlyn (20 HP)
   C = Captive (1 HP)
   a = Archer (7 HP)
   S = Thick Sludge (24 HP)
@@ -27,8 +27,8 @@ Warrior Abilities:
   warrior.look
     Returns an array of up to three Spaces in the given direction (forward by default).
 
-  warrior.walk!
-    Move in the given direction (forward by default).
+  warrior.pivot!
+    Rotate :left, :right or :backward (default)
 
   warrior.shoot!
     Shoot your bow & arrow in given direction (forward by default).
@@ -36,14 +36,14 @@ Warrior Abilities:
   warrior.feel
     Returns a Space for the given direction (forward by default).
 
-  warrior.pivot!
-    Rotate :left, :right or :backward (default)
+  warrior.rescue!
+    Rescue a captive from his chains (earning 20 points) in given direction (forward by default).
 
   warrior.health
     Returns an integer representing your health.
 
-  warrior.rescue!
-    Rescue a captive from his chains (earning 20 points) in given direction (forward by default).
+  warrior.walk!
+    Move in the given direction (forward by default).
 
 
 When you're done editing player.rb, run the rubywarrior command again.
