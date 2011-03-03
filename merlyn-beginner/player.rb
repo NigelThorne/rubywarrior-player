@@ -6,44 +6,40 @@ class Player
   def play_turn(warrior)
     @health = warrior.health
     @health_decreased = @health < @prior_health
-    @empty = warrior.feel.empty?
-    @captive = warrior.feel.captive?
-
-    @first_thing = warrior.look.find {|space| !space.empty? }
-    @shootable = false
-    if @first_thing != nil && @first_thing.to_s != 'wall'
-      @shootable = !@first_thing.captive?
-    end
-    if @first_thing != nil
-      @first_thing = @first_thing.to_s
-    end
-
+	
+	@ahead = warrior.look.find {|space| !space.empty? }
+	@ahead = [] if @ahead == nil
+	
+	@behind = warrior.look(:backward).find {|space| !space.empty? }
+	@behind = [] if @behind == nil
+	
     act(warrior)
+
     @prior_health = @health
   end
   
   def act(warrior)
-    if @health_decreased && @first_thing != 'Archer'
-      warrior.pivot!
-      return
-    end
+	if @behind.to_s == 'Archer'
+	  warrior.shoot!(:backward)
+	  return
+	end
     
-    if @shootable && @first_thing != 'Archer'
-      warrior.shoot!
-      return
-    end
-    
-  	if @captive
+  	if !@ahead.empty? && @ahead.enemy?
+	  warrior.shoot!
+	  return
+	end
+	
+	if warrior.feel.captive?
   	  warrior.rescue!
   	  return
   	end
     
-    if @empty
+    if warrior.feel.empty?
       warrior.walk!
       return
 	end
 	
-	if @first_thing == 'wall'
+	if warrior.feel.wall?
 	  warrior.pivot!
 	  return
 	end
