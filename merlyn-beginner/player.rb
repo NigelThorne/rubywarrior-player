@@ -36,11 +36,6 @@ class Player
   	  return
   	end
   	
-  	if @health < 20 && !@empty && !@enemy_archer
-  	  warrior.walk!(:backward)
-  	  return
-  	end
-  	
   	if @captive
   	  warrior.rescue!
   	  return
