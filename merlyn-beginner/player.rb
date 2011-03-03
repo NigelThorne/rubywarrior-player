@@ -8,8 +8,7 @@ class Player
     @health_decreased = @health < @prior_health
     @empty = warrior.feel.empty?
     @captive = warrior.feel.captive?
-    @enemy_archer = warrior.feel.to_s == 'Archer'
-    @wall = warrior.feel.wall?
+
     @first_thing = warrior.look.find {|space| !space.empty? }
     @shootable = false
     if @first_thing != nil && @first_thing.to_s != 'wall'
@@ -18,7 +17,7 @@ class Player
     if @first_thing != nil
       @first_thing = @first_thing.to_s
     end
-    @can_pivot = true
+
     act(warrior)
     @prior_health = @health
   end
