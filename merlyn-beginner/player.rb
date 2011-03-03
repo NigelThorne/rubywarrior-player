@@ -15,13 +15,16 @@ class Player
     if @first_thing != nil && @first_thing.to_s != 'wall'
       @shootable = !@first_thing.captive?
     end
+    if @first_thing != nil
+      @first_thing = @first_thing.to_s
+    end
     @can_pivot = true
     act(warrior)
     @prior_health = @health
   end
   
   def act(warrior)
-    if @health_decreased && @empty && @first_thing != nil && @first_thing.to_s != 'Archer'
+    if @health_decreased && @first_thing != 'Archer'
       warrior.pivot!
       return
     end
@@ -31,11 +34,6 @@ class Player
       return
     end
     
-  	if @empty && @health < 18 && !@health_decreased
-  	  warrior.rest!
-  	  return
-  	end
-  	
   	if @captive
   	  warrior.rescue!
   	  return
@@ -46,7 +44,7 @@ class Player
       return
 	end
 	
-	if @wall
+	if @first_thing == 'wall'
 	  warrior.pivot!
 	  return
 	end
