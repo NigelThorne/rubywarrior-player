@@ -29,7 +29,9 @@ class Player
       return
     end
     
-  	if !@ahead.empty? && @ahead.enemy? && (@ahead.to_s != 'Sludge' || @health < 10)
+  	if !@ahead.empty? && @ahead.enemy? &&
+  	     (@ahead.to_s != 'Sludge' || @health < 10) &&
+  	     (@ahead.to_s != 'Archer')
 	  warrior.shoot!
 	  return
 	end
