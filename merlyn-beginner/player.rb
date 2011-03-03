@@ -29,7 +29,7 @@ class Player
       return
     end
     
-    if @shootable
+    if @shootable && @first_thing != 'Archer'
       warrior.shoot!
       return
     end
