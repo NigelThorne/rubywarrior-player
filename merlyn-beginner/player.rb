@@ -34,12 +34,6 @@ class Player
   end
   
   def act(warrior)
-    if @next_action == :pivot
-      @next_action = nil
-      warrior.pivot!
-      return
-    end
-    
     if @health < @prior_health && @empty && @first_thing != nil && @first_thing.to_s != 'Archer'
       warrior.pivot!
       return
@@ -72,13 +66,6 @@ class Player
 	
 	if @wall
 	  warrior.pivot!
-	  return
-	end
-	
-	if !@enemy_archer && !@pivotted && @can_pivot
-	  @pivotted = true
-	  warrior.walk!(:backward)
-	  @next_action = :pivot
 	  return
 	end
 	
